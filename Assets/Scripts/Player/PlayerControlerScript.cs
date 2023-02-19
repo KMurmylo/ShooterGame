@@ -78,6 +78,7 @@ public class PlayerControlerScript : MonoBehaviour, IDamageable
         {
             ui.ShowUseText(false);
         }
+
         
         
     }

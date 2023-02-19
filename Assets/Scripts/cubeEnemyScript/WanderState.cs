@@ -14,6 +14,7 @@ public class WanderState : State
     Vector3 direction;
     StateManager manager;
     float chaseRange = 45f;
+    RaycastHit rayHit;
     public WanderState(GameObject self) : base(self)
     {
 
@@ -46,12 +47,12 @@ public class WanderState : State
             //Debug.Log(myTransform.forward);
         }
 
+       
         
-      
         if(Vector3.Distance(myTransform.position, destination) < 1f)
         { destinationSet = false; }
-        if (Vector3.Distance(myTransform.position, player.position) < chaseRange)
-        {
+        if (Vector3.Distance(myTransform.position, player.position) < chaseRange&&Physics.Raycast(myTransform.position,player.position-myTransform.position,out rayHit))
+        {   if(rayHit.collider.GetComponent<PlayerControlerScript>()!=null)
             return typeof(ChaseState);
         }
        

@@ -29,7 +29,7 @@ public class StateManager : MonoBehaviour,IDamageable
     }
     private void OnDestroy()
     {
-        PlayerControlerScript.GetInstance().GiveMoney(bounty);
+        PlayerControlerScript.GetInstance()?.GiveMoney(bounty);
     }
     public bool wasDamaged()
     {
