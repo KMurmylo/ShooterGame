@@ -36,7 +36,7 @@ public class WanderState : State
         }
 
         myTransform.rotation = Quaternion.Slerp(myTransform.rotation,targetRotation,Time.deltaTime*10);
-        Debug.DrawRay(myTransform.position,myTransform.forward*5,Color.white);
+        //Debug.DrawRay(myTransform.position,myTransform.forward*5,Color.white);
         if (Physics.Raycast(myTransform.position, myTransform.forward, 5))
         {
             Turn();
@@ -70,7 +70,7 @@ public class WanderState : State
     }
     void Turn()
     {
-        Debug.Log("Turned");
+        //Debug.Log("Turned");
         destination = myTransform.position+ (-myTransform.forward * Random.value * 20)+(myTransform.right * (Random.value-0.5f) * 50);
 
         SetRotation();

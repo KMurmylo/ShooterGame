@@ -53,11 +53,11 @@ public class UiScript : MonoBehaviour
         moneyText.text = "$" + Mathf.Floor(amount).ToString();
         if (gaining)
         {
-            moneyAnimation.Play("GreenFlash",0,0f);
+            moneyAnimation?.Play("GreenFlash",0,0f);
         }
         else
         {
-            moneyAnimation.Play("RedFlash",0,0f);
+            moneyAnimation?.Play("RedFlash",0,0f);
         }
     }
     public void FlashCashTextRed()

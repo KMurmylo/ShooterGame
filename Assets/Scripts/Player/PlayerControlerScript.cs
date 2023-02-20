@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerControlerScript : MonoBehaviour, IDamageable
 {
     [SerializeField] private GameObject feet;
     public Rigidbody body;
     GunPointScript gunpoint;
+    private bool menuShowing = false;
 
     Vector2 movementValues;
 
@@ -179,8 +181,12 @@ public class PlayerControlerScript : MonoBehaviour, IDamageable
     }
 
     private void OnMenu()
-    {
-        Application.Quit();
+    {   if (PauseMenuScript.isActive)
+        { PauseMenuScript.GetInstance().Continue(); }
+        else
+        {
+            PauseMenuScript.GetInstance().Pause();
+        }
     }
     private void OnUse()
     {
