@@ -15,6 +15,8 @@ public class PlayerControlerScript : MonoBehaviour, IDamageable
 
     [SerializeField] Transform camera;
     float yCamera = 0f;
+    Vector2 cameraInput;
+    float mouseSensitivity = 0.5f;
 
     int ActiveWeapon = 1;
 
@@ -81,8 +83,10 @@ public class PlayerControlerScript : MonoBehaviour, IDamageable
             ui.ShowUseText(false);
         }
 
-        
-        
+        camera.rotation = Quaternion.Euler(yCamera, camera.rotation.eulerAngles.y, camera.rotation.eulerAngles.z);
+
+        transform.Rotate(0, cameraInput.x, 0);
+
     }
     public void TakeDamage(float amount)
     {
@@ -119,7 +123,7 @@ public class PlayerControlerScript : MonoBehaviour, IDamageable
     private void OnMove(InputValue input)
     {
         movementValues = input.Get<Vector2>();
-        gunpoint.playerMoving(movementValues != Vector2.zero);
+        gunpoint.GetCurrentInterface().playerMoving(movementValues != Vector2.zero);
         
 
     }
@@ -142,22 +146,33 @@ public class PlayerControlerScript : MonoBehaviour, IDamageable
         }
     }
     private void OnLook(InputValue input)
-    {   Vector2 cameraInput = input.Get<Vector2>();
+    {   cameraInput = input.Get<Vector2>()*mouseSensitivity;
+        float smoothTime = 0.1f;
+        
         //camera.Rotate(-cameraInput.y,0,0 );
         //Debug.Log(camera.rotation.eulerAngles.y);
         yCamera = Mathf.Clamp(yCamera - cameraInput.y, -90, 90);
-        camera.rotation = Quaternion.Euler(yCamera,camera.rotation.eulerAngles.y,  camera.rotation.eulerAngles.z);
         
-        transform.Rotate(0, cameraInput.x, 0);
         
         //Debug.Log(movementValues.x + " " + movementValues.y);
     }
     private void OnFire(InputValue inputValue)
     {  
         
-        if (inputValue.Get<float>()==1) gunpoint.ButtonDown();
-        else gunpoint.ButtonUp();
+        if (inputValue.Get<float>()==1) gunpoint.GetCurrentInterface().ButtonDown();
+        else gunpoint.GetCurrentInterface().ButtonUp();
 
+    }
+    private void OnAltFire(InputValue inputValue)
+    {
+
+        if (inputValue.Get<float>() == 1) gunpoint.GetCurrentInterface().AltFireDown();
+        else gunpoint.GetCurrentInterface().AltFireUp();
+
+    }
+    private void OnReload()
+    {
+        gunpoint.GetCurrentInterface().Reload();
     }
     private void OnWeapon1()
     {

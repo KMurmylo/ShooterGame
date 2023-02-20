@@ -32,16 +32,23 @@ public class GunPointScript : MonoBehaviour
         guns[currentGun].GetComponent<IGun>().Ready();
 
     }
+
+    public IGun GetCurrentInterface()
+    {
+        return gunInterface;
+
+    }
+
     public void ButtonDown()
     {
         gunInterface.ButtonDown();
     }
-    public void ButtonUp()
+   /* public void ButtonUp()
     {
         gunInterface.ButtonUp();
     }
     public void playerMoving(bool moving)
     {
         gunInterface.playerMoving(moving);
-    }
+    }*/
 }
